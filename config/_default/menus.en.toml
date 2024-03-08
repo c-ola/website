@@ -1,0 +1,83 @@
+# -- Main Menu --
+# The main menu is displayed in the header at the top of the page.
+# Acceptable parameters are name, pageRef, page, url, title, weight.
+# 
+# The simplest menu configuration is to provide:
+#   name = The name to be displayed for this menu link
+#   pageRef = The identifier of the page or section to link to
+#
+# By default the menu is ordered alphabetically. This can be
+# overridden by providing a weight value. The menu will then be
+# ordered by weight from lowest to highest.
+
+[[main]]
+  name = "Projects"
+  pageRef = "projects"
+  weight = 10
+
+[[main]]
+  name = "Resume"
+  url = "/resume.pdf"
+  weight = 20
+
+[[main]]
+  name = "Contact"
+  weight = 30
+
+
+[[main]]
+  parent = "Contact"
+  pre = "email"
+  name = "Email"
+  url = "mailto:nikola.z37@hotmail.com"
+  weight = 10
+
+[[main]]
+  parent = "Contact"
+  pre = "github"
+  name = "GitHub"
+  url = "https://github.com/c-ola"
+  weight = 20
+
+[[main]]
+  parent = "Contact"
+  pre = "linkedin"
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/in/nikola-zupancic/"
+  weight = 30
+
+#[[main]]
+#  name = "Parent"
+#  weight = 20
+
+#[[main]]
+#  name = "ex
+#  parent = "Parent"
+#  pageRef = "posts"
+#  weight = 20
+
+#[[subnavigation]]
+#  name = "An interesting topic"
+#  pageRef = "tags/interesting-topic"
+#  weight = 10
+
+#[[subnavigation]]
+#  name = "My Awesome Category"
+#  pre = "github"
+#  pageRef = "categories/awesome"
+#  weight = 20
+
+
+# -- Footer Menu --
+# The footer menu is displayed at the bottom of the page, just before
+# the copyright notice. Configure as per the main menu above.
+ 
+ [[footer]]
+   name = "Resume"
+   url = "/resume.pdf"
+   weight = 10
+
+ [[footer]]
+   name = "Projects"
+   pageRef = "projects"
+   weight = 20
