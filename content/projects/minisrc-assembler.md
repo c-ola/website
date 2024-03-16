@@ -17,11 +17,12 @@ Features that are currently supported are:
 - converting files to hex
 - converting single instructions to hex
 - binary, signed/unsigned decimal, hex immediate value representations
+- location tags (for branches, etc)
+- directives (ORG)
 
 Planned to support:
 - exponential immediate values (e.g. 10e3)
 - signed binary and hex
 - macro immediate values
-- location tags (for branches, etc)
-- initializing locations in memory to data (strings, integers, etc)
+- initializing locations in memory to data (strings, integers, etc) (other directives)
 - maybe maybe interpreter
