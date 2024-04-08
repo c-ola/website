@@ -1,23 +1,33 @@
 [[main]]
-none = "none"
+name = "Resume"
+url = "/resume.pdf"
+identifier = "wR7BPUz6BD"
+weight = 1
 
 [[main]]
 name = "Projects"
 pageRef = "/projects"
 identifier = "UdhC8DEt3n"
-weight = 99
+weight = 10
 
 [[main]]
 name = "Writeups"
 pageRef = "/writeups"
 identifier = "HR29r5eigU"
-weight = 999
+weight = 20
+
 
 [[main]]
-name = "Resume"
-url = "/resume.pdf"
-identifier = "wR7BPUz6BD"
-weight = 9999
+identifier = "github"
+pre = "github"
+url = "https://github.com/c-ola"
+weight = 50
+
+[[main]]
+identifier = "linkedin"
+pre = "linkedin"
+url = "https://www.linkedin.com/in/nikola-zupancic/"
+weight = 60
 
 [[footer]]
 none = "none"

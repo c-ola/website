@@ -11,3 +11,7 @@ dateFormat = "2 January 2006"
 
 [author]
 name = "Nikola Zupancic"
+links = [
+    { github = "https://github.com/c-ola" },
+    { linkedin = "https://www.linkedin.com/in/nikola-zupancic/" }
+]
