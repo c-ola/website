@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Write Ups on Nikola Zupancic</title>
-    <link>http://localhost:1313/writeups/</link>
-    <description>Recent content in Write Ups on Nikola Zupancic</description>
+    <title>Ctf on Nikola Zupancic</title>
+    <link>http://localhost:1313/tags/ctf/</link>
+    <description>Recent content in Ctf on Nikola Zupancic</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2024 Nikola Zupancic</copyright>
-    <lastBuildDate>Thu, 14 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/writeups/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>QCTF 2024</title>
       <link>http://localhost:1313/writeups/qctf2024/</link>
