@@ -25,10 +25,10 @@ int main() {
     b = (nil_t)b;
 }
 ```
-By the looks of things, we'll be dealing with some template black magic. We can confirm this by taking a look at `templates.hpp`, where we can see the black magic happening.
+By the looks of things, we'll be dealing with some template wizardy. We can confirm this by taking a look at `templates.hpp`, where we can see it happening.
 
 Before doing anything else, we can first compile the program as per the description.\
-`g++ main.cpp templates.cpp -o blackmagic -ftemplate-depth=10000`\
+`g++ main.cpp templates.cpp -o witchcraft -ftemplate-depth=10000`\
 It gives an error when compiling (with something about templates), so I decided to then try and understand what the templates are actually doing.
 
 In the main function, `nil_t` (an empty struct), `prog_t` (list of numbers) and `flag_t` (our guess for the flag) are all passed in to the template for the struct `vm_t`.
@@ -44,9 +44,9 @@ There are 5 different operations that can be executed on the stack, each corresp
 - Push In (uses `g`, IT: 3): pop the head of In, push it to the stack
 - Condition Pop (`M_t`, IT: 4): pop if the top is equal to the head of IT
 
-Now that we know what kind of spell the black magic casts, we can:
+Now that we know what kind of spell is being cast, we can:
  - realize that the operations that are performed have to result in a value equal to the value after the any condition check instructions
- - make an equivalent spell that doesn't use black magic, in python
+ - recreate the same spell, but in python
 
 # Solution
 Our python program will look something like this:
@@ -117,7 +117,7 @@ print(strres)
 
 This gives us the flag:\
 `UMDCTF{c++_templates_are_the_reason_for_the_butlerian_jihad}`\
-Which is correct, meaning we have succesfully deciphered the black magic!
+Which is correct, meaning we have succesffully deciphered the template wizardry!
 
 Full solution file: [`typecheck.py`](/writeups/typecheck/typecheck.py)
 
