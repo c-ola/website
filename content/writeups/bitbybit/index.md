@@ -13,7 +13,7 @@ I heard one-time pads are unbreakable.\
 Files: [`transmit.py`](/writeups/bitbybit/transmit.py) and [`out.txt`](/writeups/bitbybit/out.txt)
 
 ## Solution
-We are given `out.txt` which is the output of the `transmit.py`, a text encrypted using one time pad and then encoded into hex.
+We are given `out.txt` which is the output of `transmit.py`, a text encrypted using one time pad and then encoded into hex.
 We can first write the following function to decrypt the following function to read the encoded output:
 ```py
 def decrypt(msg, key):
@@ -31,7 +31,7 @@ def decrypt(msg, key):
     return dec
 ```
 
-Running this with `out.txt` as `msg` gives the following output:
+Running this with `out.txt` as `msg` prints the following:
 ```
 0 : b'Chap\xda\xa893\xa1ew\x82\x0c\x9a\xbbn'
 1 : b'igma\xda\xa4(3\xd3*G\x8fc\xf3\x90 '
@@ -50,6 +50,7 @@ Running this with `out.txt` as `msg` gives the following output:
 14 : b'cked\x8e\xbd*`\xe4eN\x83\r\xd4\x97g'
 15 : b'ht, \xcc\xb8?3\xd51K\x8b\x07\x9a\x8ea'
 16 :b'id n\xc1\xed&z\xfe!\r\xca!\xdf\xdew'
+...
 ```
 This goes on for 368 lines.
 We can see that the first 4 letters of each chunk were not encrypted, meaning we can guess what word they would be. For example; "Chap" -> "Chapter 1 ".
@@ -120,7 +121,7 @@ I'm not really sure why the -1 is necessary, but I think it has to do with the I
 I was able to determine that it was needed by just bruteforcing the last byte of the key.
 
 ### Flag
-Finally, with the full text, we can just `do python3 bitbybit.py | grep pctf` and we'll have the flag.
+Finally, with the full text, we can just run `python3 bitbybit.py | grep pctf` and we'll have the flag.
 
 ```
 In a dimly lit room in downtown Chicago, Ethan "Cipher" Reynolds sat hunched over his computer, the glow from the monitor casting a bluish hue across his determined face. Th
