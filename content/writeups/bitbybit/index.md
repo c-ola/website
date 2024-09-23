@@ -13,8 +13,8 @@ I heard one-time pads are unbreakable.\
 Files: [`transmit.py`](/writeups/bitbybit/transmit.py) and [`out.txt`](/writeups/bitbybit/out.txt)
 
 ## Solution
-We are given `out.txt` which is the output of `transmit.py`, a text encrypted using one time pad and then encoded into hex.
-We can first write the following function to decrypt the following function to read the encoded output:
+We are given `out.txt` which is the output of `transmit.py`, a text encrypted using one time pad and then encoded into hex.\
+We first write the following function to read the encoded output:
 ```py
 def decrypt(msg, key):
     iv = 0
