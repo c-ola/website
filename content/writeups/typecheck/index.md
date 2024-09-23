@@ -7,12 +7,12 @@ tags: ["ctf"]
 showTableOfContents: true
 ---
 
-# Description
+## Description
 My C++ code won't type check. Can you fix that for me?\
 Note: you will need to set `-ftemplate-depth=10000` when compiling.\
 Files: [`templates.hpp`](/writeups/typecheck/templates.hpp) and [`main.cpp`](/writeups/typecheck/main.cpp)
 
-# Understanding the problem
+## Understanding the problem
 The main function is in `main.cpp` and looks something like this:
 ```c++
 #include "templates.hpp"
@@ -48,7 +48,7 @@ Now that we know what kind of spell is being cast, we can:
  - realize that the operations that are performed have to result in a value equal to the value after the any condition check instructions
  - recreate the same spell, but in python
 
-# Solution
+## Solution
 Our python program will look something like this:
 ```py
 IT = [2, 0, 3, 2, 2, 47, 1, 0, 3, 12, 2, 24, 1, 0, 3, 16, 2, 67, 1, 0, 3, 18, 2, 89, 1, 0, 3, 22, 2, 59, 1, 0, 3, 41, 2, 61, 1, 0, 3, 51, 2, 19, 1, 0, 3, 56, 2, 45, 1, 0, 4, 40701,]
