@@ -9,7 +9,7 @@ showTableOfContents: true
 I'm not very experienced with crypto chals, so this was fun to figure out.
 
 ## Description
-I heard one-time pads are unbreakable.
+I heard one-time pads are unbreakable.\
 Files: [`transmit.py`](/writeups/bitbybit/transmit.py) and [`out.txt`](/writeups/bitbybit/out.txt)
 
 ## Solution

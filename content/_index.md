@@ -2,11 +2,11 @@
 title: ''
 date: "2023-09-14"
 layout: 'profile'
-mainSections: ["projects"]
+mainSections: ["projects, writeups"]
 ---
 
-I am a student in my 3rd year at Queen's University, currently studying Computer Engineering. 
+I am a student in my 4th year at Queen's University, currently studying Computer Engineering. 
 
-My primary interests lie in low level programming, and understanding how computers work. I have also started to do some CTFs.
+My primary interests lie in low level programming and working with software and hardware. I also enjoy learning how things actually work. I also do CTFs.
 
 Here you can find my projects, write ups, and links to contact me.
