@@ -61,16 +61,16 @@ Since the key is also being repeated every 256 chunks, we can figure out the key
 A one time pad is a simple xor with a key of the same length as the plaintext.\
 `p ^ k = c`
 
-Given two ciphertexts `c1, c2`, unknown plaintexts `p1, p2` and an unkown key `k`:\
+Given two known ciphertexts `c1, c2`, unknown plaintexts `p1, p2` and an unknown key `k`:\
 `p1 ^ k = c1`\
 `p2 ^ k = c2`
 
 Then:\
 `c1 ^ c2 = p1 ^ p2 = x`
 
-If we can guess some of the characters `p1'` of the plaintext based on other adjacnet characters, we can then determine the key by going backwards.
+If we can guess some of the characters `p1'` of the plaintext based on other adjacent characters, we can then determine the key by going backwards.
 
-`p2' = x ^ p1'` gives the next characters of the other plaintext based on your guess, and if it makes sense, then your guess was correct.
+`p2' = x ^ p1'` gives the next characters of the other plaintext `p2` based on your guess, and if it makes sense, then your guess was correct.
 
 The key is determined from: `k = c2 ^ p2'`.
 
