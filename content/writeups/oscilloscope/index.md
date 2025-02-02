@@ -2,8 +2,8 @@
 title: "rev/oscilloscope - Nullcon HackIM CTF Goa 2025"
 date: 2025-01-02
 draft: false
-description: "Write up for the backtrack rev challenge from Nullcon Goa CTF 2025"
-tags: ["ctf", "rev", "malware"]
+description: "Write up for the oscilloscope rev challenge from Nullcon Goa CTF 2025"
+tags: ["ctf", "rev", "i2c"]
 showTableOfContents: true
 ---
 
