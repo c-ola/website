@@ -24,7 +24,7 @@ Files can be found in the zip:
 
 To solve this task reverse what's in data.bin and look at the output (example: input_file -> keylogger, data.bin -> ???)
 
-Files: [`files.zip`](/writeups/backtract/files.zip)
+Files: [`files.zip`](/writeups/backtrack/files.zip)
 
 ## Solution
 The zip contains the 4 files mentioned in the description. The sample `b8ad5cbf8c8a...`, is malware that loads payloads. The idea is that it turns files like `input_file` into a *PE* such as `keylogger.bin`, which it then launches. Based on the description, the flag should be in the transformed `data.bin`.
@@ -112,7 +112,7 @@ LAB_00402c9a:
 It looks like there's alot here, but all of the transformations actually happen in the function that get's called (here named `init_all`).
 The rest is used to initialize some headers for the *PE* in the program's memory space.
 
-Taking a look at that function, we can see it's just a wrapper around another function call (I name dthem a little confusingly).
+Taking a look at that function, we can see it's just a wrapper around another function call (my naming *convention* (I don't have a naming convention) is confusing) 
 ```c
 undefined4 init_all(void)
 {
