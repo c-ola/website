@@ -3,7 +3,7 @@ title: "rev/Typecheck UMDCTF 2024"
 date: 2024-04-28
 draft: false
 description: "Write up for the Typecheck challenge from UMDCTF 2024"
-tags: ["ctf"]
+tags: ["ctf", "rev"]
 showTableOfContents: true
 ---
 
