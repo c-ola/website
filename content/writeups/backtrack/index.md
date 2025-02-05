@@ -32,7 +32,7 @@ Looking at the hex of the two untransformed files (and based on the size of the 
 ![input_file](/writeups/backtrack/input_file_hex.png)
 ![data.bin](/writeups/backtrack/data_hex.png)
 
-With this determined, we can finally start to look at the decompiled code in ghidra.
+With this determined, we can finally start to look at the decompiled code from `b8ad5cbf8c8a...` in ghidra.
 
 The main function looks like this (after some analysis, some of the names for things are also dumb):
 ```c
@@ -109,7 +109,7 @@ LAB_00402c9a:
 }
 ```
 
-It looks like there's alot here, but all of the transformations actually happen in the function that get's called (here named `init_all`).
+It looks like there's alot here, but all of the transformations actually happen in the function `init_all`).
 The rest is used to initialize some headers for the *PE* in the program's memory space.
 
 Taking a look at that function, we can see it's just a wrapper around another function call (my naming *convention* (I don't have a naming convention) is confusing) 
