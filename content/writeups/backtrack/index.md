@@ -1,51 +1,51 @@
 ---
-title: "rev/backtrack - nullcon hackim ctf goa 2025"
+title: "rev/backtrack - Nullcon HackIM CTF Goa 2025"
 date: 2025-01-02
 draft: false
-description: "write up for the backtrack rev challenge from nullcon goa ctf 2025"
+description: "Write up for the backtrack rev challenge from Nullcon Goa CTF 2025"
 tags: ["ctf", "rev", "malware"]
-showtableofcontents: true
+showTableOfContents: true
 ---
 
-this was a pretty fun malware challenge from nullcon goa, although i did spend alot of time going through random rabbit holes in the program (but i guess i now know more about how malware might load dlls).
+This was a pretty fun malware challenge from nullcon goa, although I did spend alot of time going through random rabbit holes in the program (but I guess I now know more about how malware might load DLLs).
 
 
-## chal description
-while working i found an interesting sample in the wild.\
-the sample seems to load other executables but idk how? can you find that out?\
-warning: this is an actual malware, do not execute it (the challenge is meant to be solved statically)\
-also i overwrote a part of the entry to make the sample not executble (just to be extra safe ;) )\
-files can be found in the zip:
+## Chal Description
+While Working I found an interesting Sample in the wild.\
+The Sample seems to load other executables but idk how? can you find that out?\
+WARNING: THIS IS AN ACTUAL MALWARE, DO NOT EXECUTE IT (the challenge is meant to be solved statically)\
+ALSO I OVERWROTE A PART OF THE ENTRY TO MAKE THE SAMPLE NOT EXECUTBLE (just to be extra safe ;) )\
+Files can be found in the zip:
 
 - b8ad5cbf8c8a3129582161226e79b6c4b67c8b868592d1618252451c8c2146c8 is the sample
 - input_file is the data they used to get the keylogger
 - keylogger.bin is the result after the input_file is given to the sample
 - data.bin is the challenge file
 
-to solve this task reverse what's in data.bin and look at the output (example: input_file -> keylogger, data.bin -> ???)
+To solve this task reverse what's in data.bin and look at the output (example: input_file -> keylogger, data.bin -> ???)
 
-files: [`files.zip`](/writeups/backtrack/files.zip)
+Files: [`files.zip`](/writeups/backtrack/files.zip)
 
-## solution
-the zip contains the 4 files mentioned in the description. the sample `b8ad5cbf8c8a...`, is malware that loads payloads. the idea is that it turns files like `input_file` into a *pe* such as `keylogger.bin`, which it then launches. based on the description, the flag should be in the transformed `data.bin`.
-looking at the hex of the two untransformed files (and based on the size of the `keylogger.bin`), we can see that they are compressed, and that `data.bin` should turn into a jpeg.
+## Solution
+The zip contains the 4 files mentioned in the description. The sample `b8ad5cbf8c8a...`, is malware that loads payloads. The idea is that it turns files like `input_file` into a *PE* such as `keylogger.bin`, which it then launches. Based on the description, the flag should be in the transformed `data.bin`.
+Looking at the hex of the two untransformed files (and based on the size of the `keylogger.bin`), we can see that they are compressed, and that `data.bin` should turn into a JPEG.
 ![input_file](/writeups/backtrack/input_file_hex.png)
 ![data.bin](/writeups/backtrack/data_hex.png)
 
-with this determined, we can finally start to look at the decompiled code in ghidra.
+With this determined, we can finally start to look at the decompiled code from `b8ad5cbf8c8a...` in ghidra.
 
-the main function looks like this (after some analysis, some of the names for things are also dumb):
+The main function looks like this (after some analysis, some of the names for things are also dumb):
 ```c
 int main(void)
 {
-  bool bvar1;
-  char cvar2;
-  undefined uvar3;
+  bool bVar1;
+  char cVar2;
+  undefined uVar3;
   undefined2 show_window;
-  int ivar4;
-  int *pivar5;
-  undefined4 uvar6;
-  int unaff_esi;
+  int iVar4;
+  int *piVar5;
+  undefined4 uVar6;
+  int unaff_ESI;
   void *exception_list;
   code *some_scramble_func_;
   uint idk_what_this_s;
@@ -53,188 +53,188 @@ int main(void)
   
   local_8 = 0xfffffffe;
   some_scramble_func_ = lots_of_unwinding;
-  exception_list = exceptionlist;
+  exception_list = ExceptionList;
   idk_what_this_s = something_notimportant ^ 0x405bb0;
-  exceptionlist = &exception_list;
-  cvar2 = init_start(1);
-  if (cvar2 == '\0') {
+  ExceptionList = &exception_list;
+  cVar2 = init_start(1);
+  if (cVar2 == '\0') {
     handle_exceptions(7);
   }
   else {
-    bvar1 = false;
+    bVar1 = false;
     local_8 = 0;
-    uvar3 = fun_00402eb0();
-    if (dat_00407068 != 1) {
-      if (dat_00407068 == 0) {
-        dat_00407068 = 1;
+    uVar3 = FUN_00402eb0();
+    if (DAT_00407068 != 1) {
+      if (DAT_00407068 == 0) {
+        DAT_00407068 = 1;
                     /* get args to somewhere idk where though */
-        ivar4 = call_main_table(&another_table,&dat_00405118);
-        if (ivar4 != 0) {
-          exceptionlist = exception_list;
+        iVar4 = call_main_table(&another_table,&DAT_00405118);
+        if (iVar4 != 0) {
+          ExceptionList = exception_list;
           return 0xff;
         }
-        _initterm(&ptr_00405100,&dat_00405108);
-        dat_00407068 = 2;
+        _initterm(&PTR_00405100,&DAT_00405108);
+        DAT_00407068 = 2;
       }
       else {
-        bvar1 = true;
+        bVar1 = true;
       }
-      ___scrt_release_startup_lock(uvar3);
-      pivar5 = (int *)fun_00403110();
-      if (*pivar5 != 0) {
-        cvar2 = check_entrypoint(pivar5);
-        if (cvar2 != '\0') {
-          (*(code *)*pivar5)(0,2,0);
+      ___scrt_release_startup_lock(uVar3);
+      piVar5 = (int *)FUN_00403110();
+      if (*piVar5 != 0) {
+        cVar2 = check_entrypoint(piVar5);
+        if (cVar2 != '\0') {
+          (*(code *)*piVar5)(0,2,0);
         }
       }
-      show_window = fun_004032b0();
-      uvar6 = fun_00403780();
-      unaff_esi = init_all(0x400000,0,uvar6,show_window);  // the function where things happen
-      cvar2 = fun_00403300();
-      if (cvar2 != '\0') {
-        if (!bvar1) {
+      show_window = FUN_004032b0();
+      uVar6 = FUN_00403780();
+      unaff_ESI = init_all(0x400000,0,uVar6,show_window);  // The function where things happen
+      cVar2 = FUN_00403300();
+      if (cVar2 != '\0') {
+        if (!bVar1) {
           _cexit();
         }
         free_all(1,0);
-        exceptionlist = exception_list;
-        return unaff_esi;
+        ExceptionList = exception_list;
+        return unaff_ESI;
       }
-      goto lab_00402c9a;
+      goto LAB_00402c9a;
     }
   }
   handle_exceptions(7);
-lab_00402c9a:
-                    /* warning: subroutine does not return */
-  exit(unaff_esi);
+LAB_00402c9a:
+                    /* WARNING: Subroutine does not return */
+  exit(unaff_ESI);
 }
 ```
 
-it looks like there's alot here, but all of the transformations actually happen in the function that get's called (here named `init_all`).
-the rest is used to initialize some headers for the *pe* in the program's memory space.
+It looks like there's alot here, but all of the transformations actually happen in the function `init_all`).
+The rest is used to initialize some headers for the *PE* in the program's memory space.
 
-taking a look at that function, we can see it's just a wrapper around another function call (my naming *convention* (i don't have a naming convention) is confusing) 
+Taking a look at that function, we can see it's just a wrapper around another function call (my naming *convention* (I don't have a naming convention) is confusing) 
 ```c
 undefined4 init_all(void)
 {
-  int ivar1;
+  int iVar1;
   
-  ivar1 = init();
-  if (ivar1 == 0) {
+  iVar1 = init();
+  if (iVar1 == 0) {
      try_reinit();
      start_stuff(0);
   }
   return 0;
 }
 ```
-the init function loads `shwapi.dll`
+The init function loads `SHWAPI.dll`
 ```c
 {
-  loadlibrarya(local_50);
-  builtin_memcpy(local_30 + 0xc,"shlwapi.dll",0xc);
-  hmodule = loadlibrarya(local_30 + 0xc);
-  builtin_memcpy(local_30,"shgetvaluea",0xc);
-  shgetvaluea?? = (shgetvaluea *)getprocaddress(hmodule,local_30);
+  LoadLibraryA(local_50);
+  builtin_memcpy(local_30 + 0xc,"SHLWAPI.dll",0xc);
+  hModule = LoadLibraryA(local_30 + 0xc);
+  builtin_memcpy(local_30,"SHGetValueA",0xc);
+  shgetvaluea?? = (SHGetValueA *)GetProcAddress(hModule,local_30);
 }
 ```
 
-the try_reinit function seems to just delay the program a little.
+The try_reinit function seems to just delay the program a little.
 ```c
-  dvar1 = gettickcount();
-  uvar5_45000 = 45000;
-  uvar4_360000 = 360000;
+  DVar1 = GetTickCount();
+  uVar5_45000 = 45000;
+  uVar4_360000 = 360000;
   do {
-     getlocaltime(&local_28);
-     uvar3 = (uint)local_28.wsecond;
-     dvar2 = gettickcount();
-     if ((45000 < dvar2 - dvar1) && (uvar3 == t_second)) break;
-     dvar2 = gettickcount();
-  } while (dvar2 - dvar1 < 0x57e41);
+     GetLocalTime(&local_28);
+     uVar3 = (uint)local_28.wSecond;
+     DVar2 = GetTickCount();
+     if ((45000 < DVar2 - DVar1) && (uVar3 == t_second)) break;
+     DVar2 = GetTickCount();
+  } while (DVar2 - DVar1 < 0x57e41);
 ```
 
-### loading
+### Loading
 
-the function `start_stuff` is where the program actually loads the exe.
+The function `start_stuff` is where the program actually loads the exe.
 ```c
 void start_stuff(void)
 {
-  uint ustack_60;
-  dword local_50 [2];
-  handle thread_handle;
-  lpthread_start_routine dllmain_addr;
+  uint uStack_60;
+  DWORD local_50 [2];
+  HANDLE thread_handle;
+  LPTHREAD_START_ROUTINE dllmain_addr;
   undefined4 some_size;
-  image_dos_header *registryval;
-  context *context;
-  char dllmain [28];
+  IMAGE_DOS_HEADER *registryval;
+  Context *context;
+  char DllMain [28];
   uint local_18;
   undefined *local_14;
   void *local_10;
-  undefined *pustack_c;
+  undefined *puStack_c;
   undefined4 local_8;
   
-  pustack_c = &lab_004041c0;
-  local_10 = exceptionlist;
-  ustack_60 = something_notimportant ^ (uint)&stack0xfffffffc;
-  local_14 = (undefined *)&ustack_60;
-  exceptionlist = &local_10;
+  puStack_c = &LAB_004041c0;
+  local_10 = ExceptionList;
+  uStack_60 = something_notimportant ^ (uint)&stack0xfffffffc;
+  local_14 = (undefined *)&uStack_60;
+  ExceptionList = &local_10;
   local_8 = 0;
   some_size = 0;
-  local_18 = ustack_60;
-  registryval = (image_dos_header *)hkey_loader_or_something(&some_size);
+  local_18 = uStack_60;
+  registryval = (IMAGE_DOS_HEADER *)hkey_loader_or_something(&some_size);
   context = copy_file_wrapper(registryval,some_size);
-  dllmain[0] = '\0';
-  dllmain[1] = '\0';
+  DllMain[0] = '\0';
+  DllMain[1] = '\0';
    ...
-  dllmain[0x1b] = '\0';
-  strcat(dllmain,"dll");
-  strcat(dllmain,"ma");
-  strcat(dllmain,"in");
-  dllmain_addr = (lpthread_start_routine)find_dllmain(context,dllmain);
-  thread_handle = (handle)0x0;
-  dllmain_addr = (lpthread_start_routine)find_dllmain(context,dllmain);
-  thread_handle = createthread((lpsecurity_attributes)0x0,0,dllmain_addr,(lpvoid)0x0,0,local_50);
-  waitforsingleobject(thread_handle,0xffffffff);
+  DllMain[0x1b] = '\0';
+  strcat(DllMain,"Dll");
+  strcat(DllMain,"Ma");
+  strcat(DllMain,"in");
+  dllmain_addr = (LPTHREAD_START_ROUTINE)find_dllmain(context,DllMain);
+  thread_handle = (HANDLE)0x0;
+  dllmain_addr = (LPTHREAD_START_ROUTINE)find_dllmain(context,DllMain);
+  thread_handle = CreateThread((LPSECURITY_ATTRIBUTES)0x0,0,dllmain_addr,(LPVOID)0x0,0,local_50);
+  WaitForSingleObject(thread_handle,0xffffffff);
   exit_free_fn();
   return;
 }
 ```
 
-i did end up figuring out the structs of these values while trying to understand how it works. 
-the malware loads some input from the windows registry (hkey_loader), which it interprets as a *pe* header, `copy_file_wrapper` copies the loaded data, into program memory.
-the next part finds `dllmain` in the loaded program and runs it in a other thread.
+I did end up figuring out the structs of these values while trying to understand how it works. 
+The malware loads some input from the Windows Registry (hkey_loader), which it interprets as a *PE* header, `copy_file_wrapper` copies the loaded data, into program memory.
+The next part finds `DllMain` in the loaded program and runs it in a other thread.
 
-knowing all this, the data would have to be transformed when it first gets loaded, which would be in `hkey_loader_or_something`.
+Knowing all this, the data would have to be transformed when it first gets loaded, which would be in `hkey_loader_or_something`.
 
-this function looks like this:
+This function looks like this:
 ```c
 void hkey_loader_or_something(size_t *param_1)
 {
-  lstatus lvar1;
-  dword local_48;
+  LSTATUS LVar1;
+  DWORD local_48;
   void *dest;
   size_t length;
-  dword local_3c;
+  DWORD local_3c;
   astruct_1 *src;
   size_t size_in;
   char buf_a [22];
   void *local_10;
-  undefined *pustack_c;
+  undefined *puStack_c;
   undefined4 local_8;
   
-  pustack_c = &lab_004041f0;
-  local_10 = exceptionlist;
-  exceptionlist = &local_10;
+  puStack_c = &LAB_004041f0;
+  local_10 = ExceptionList;
+  ExceptionList = &local_10;
   local_8 = 0;
   length = 0;
   size_in = 0;
   local_48 = 3;
   local_3c = 4;
-  builtin_strncpy(buf_a,"software\\realtek inc.",0x16);
-  lvar1 = (*shgetvaluea??)((hkey)0x80000001,buf_a,"cs",&local_48,&size_in,&local_3c);
-  if (lvar1 == 0) {
+  builtin_strncpy(buf_a,"Software\\Realtek Inc.",0x16);
+  LVar1 = (*shgetvaluea??)((HKEY)0x80000001,buf_a,"CS",&local_48,&size_in,&local_3c);
+  if (LVar1 == 0) {
      src = (astruct_1 *)malloc(size_in);
      local_3c = size_in;
-     lvar1 = (*shgetvaluea??)((hkey)0x80000001,buf_a,"ch",&local_48,src,&local_3c);
-     if (lvar1 == 0) {
+     LVar1 = (*shgetvaluea??)((HKEY)0x80000001,buf_a,"CH",&local_48,src,&local_3c);
+     if (LVar1 == 0) {
        length = size_in << 1;
        dest = malloc(length);
        if (dest != (void *)0x0) {
@@ -244,25 +244,25 @@ void hkey_loader_or_something(size_t *param_1)
             operator_delete[](src);
             src = (astruct_1 *)0x0;
           }
-          fun_004014c1();
+          FUN_004014c1();
           return;
        }
        dest = (void *)0x0;
      }
   }
-  exceptionlist = local_10;
-  init_dat_00407298_first();
+  ExceptionList = local_10;
+  init_DAT_00407298_first();
   return;
 }
 ```
 
-it would look for **software\realtek inc.** in the registry, and load the two keys **cs** and **hs**.
-the first one is the size of the data, and the second is the data itself.
-the program then allocates **2x** the size of the data into a buffer that will store the transformed data.
+It would look for **Software\Realtek Inc.** in the registry, and load the two keys **CS** and **HS**.
+The first one is the size of the data, and the second is the data itself.
+The program then allocates **2x** the size of the data into a buffer that will store the transformed data.
 
-### transformation
+### Transformation
 
-the function `copy` is where the transformations happen. src_buf is where the loaded untransformed data is.
+The function `copy` is where the transformations happen. src_buf is where the loaded untransformed data is.
 ```c
 struct astruct_1 {
     undefined4* ptr;
@@ -322,9 +322,9 @@ char * __cdecl copy(astruct_1 *src_buf,int size_in,byte *dest_buf?,int *length)
 }
 ```
 
-### flag
+### Flag
 
-this algorithm seems to just be some kind of decompression, which i reimplemented in python.
+This algorithm seems to just be some kind of decompression, which I reimplemented in python.
 ```py
 f = open("data.bin", 'rb')
 f.read(4)
@@ -361,11 +361,11 @@ with open("output_file.bin", 'wb') as f:
     f.write(out_buf)
 ```
 
-running this on `data.bin` gives us this jpeg.
-![flag image](/writeups/backtrack/output_file.jpeg)
+Running this on `data.bin` gives us this jpeg.
+![Flag image](/writeups/backtrack/output_file.jpeg)
 
-this also works for the other input file (to get the keylogger).
+This also works for the other input file (to get the keylogger).
 
-flag: `eno{m4lw4r3_3nj0y3r5_wh00p!}`
+Flag: `ENO{M4lw4r3_3Nj0y3R5_Wh00P!}`
 
-solution script: [`backtrack.py`](/writeups/backtrack/backtrack.py)
+Solution script: [`backtrack.py`](/writeups/backtrack/backtrack.py)
