@@ -14,7 +14,7 @@ As a forenote, this write up is quite long.
 ## Chal Description
 Malakar placed a spell on you that transported you to the Nether world. The only way to escape is to remember the enchantments of your forefathers, and unleash your ability to blast through Aether gateways...
 
-Files: [`rev_gateway.zip`](/writeups/gateway/rev_gateway.zip)
+Files: [rev_gateway.zip](/writeups/gateway/rev_gateway.zip)
 
 ## Solution
 
@@ -532,6 +532,8 @@ Testing against the binary tells us it's `5`. Giving us the flag `HTB{r3tf@r_t0_
 Recall the ✨ enchantments ✨ of your forefathers: HTB{r3tf@r_t0_tH3_h3@V3n5g@t3!!}
 ENCHANTMENT CORRECT! YOU HAVE ESCAPED MALAKAR'S TRAP!
 ```
+
+Full solution: [solution.py](/writeups/gateway/solution.py)
 
 ## Notes
 I definitely could have gotten this working with no guessing by using something like pwntools to debug the binary and read the crcs for strings made up of only one ascii characters in every position. This should theoretically give a complete map. I'm still not too sure about why the crc is different based on the position though, I was kind of thinking it could be a problem with the debugger and the 32-bit compatability mode interfering somehow? (idk what i'm talking about)
