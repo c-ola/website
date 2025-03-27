@@ -28,9 +28,10 @@ Recall the ✨ enchantments ✨ of your forefathers:
 ```
 Where we can then input our *enchantment* to solve the challenge.
 
-
-We can get a bit more information from binwalk, seems like we're working with a 32-bit ELF, which I hadn't seen in any rev chals before. Also note the unix paths.
+We can get a bit more information from `binwalk` and `file`, seems like we're working with a 32-bit ELF, which I hadn't seen in any rev chals before. Also note the unix paths. I'm fairly certain that these are here because the ELF is statically linked. And since it's also stripped, we can use a ghidra GNU plugin later on to name some of the functions.
 ```sh
+❯ file gateway
+gateway: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU/Linux), statically linked, BuildID[sha1]=b3c8c27272891690a3d00aa745165056bd7041e0, for GNU/Linux 3.2.0, stripped
 ❯ binwalk gateway
 
 DECIMAL       HEXADECIMAL     DESCRIPTION
@@ -47,7 +48,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 705296        0xAC310         ELF, 32-bit LSB no machine, (SYSV)
 ```
 
-Opening up the binary in ghidra gives us also pretty funky decompilation.
+Opening up the binary in ghidra gives us a pretty funky decompilation.
 ```c
 void FUN_08049b7c(void)
 {

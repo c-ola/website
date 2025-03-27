@@ -1,3 +1,4 @@
 .max-w-prose {
     max-width: 130ch;
+    margin: 0 auto;
 }
