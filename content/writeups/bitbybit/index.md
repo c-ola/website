@@ -3,7 +3,7 @@ title: "crypto/Bit by Bit - PatriotCTF 2024"
 date: 2024-09-23
 draft: false
 description: "Write up for the Bit by Bit challenge from PatriotCTF 2024"
-tags: ["ctf", "crypto"]
+tags: ["ctf", "crypto", "one time pad"]
 showTableOfContents: true
 ---
 I'm not very experienced with crypto chals, so this was fun to figure out.

@@ -3,7 +3,7 @@ title: "rev/Gateway - Cyber Apocalypse CTF 2025: Tales from Eldoria"
 date: 2025-03-26
 draft: false
 description: "Write up for the Gateway rev chal from Cyber Apocalypse CTF 2025: Tales from Eldoria"
-tags: ["ctf", "rev", "heavensgate", "x86", "polyglot"]
+tags: ["CTF", "rev", "x86", "polyglot", "heavensgate"]
 showTableOfContents: true
 ---
 

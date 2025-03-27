@@ -3,7 +3,7 @@ title: "rev/backtrack - Nullcon HackIM CTF Goa 2025"
 date: 2025-01-02
 draft: false
 description: "Write up for the backtrack rev challenge from Nullcon Goa CTF 2025"
-tags: ["ctf", "rev", "malware"]
+tags: ["ctf", "rev", "malware", "windows"]
 showTableOfContents: true
 ---
 
