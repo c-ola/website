@@ -88,7 +88,7 @@ We see that two labels are pushed onto the stack, as well as 0x23, and 0x33. The
 
 Return far (`retf`) is also executed after this, popping the function address off the stack and into the instruction pointer, as well as 0x33 into CS.
 
-Taking a look at that function is also even more funky, since it seems to just call another function.
+Taking a look at that function, it's even more funky, since it seems to *just* call another function.
 ```c
 void FUN_080499b9(void)
 {
@@ -129,13 +129,12 @@ For this solution, this function in particular is not very important to understa
 080499e8 8b 43 10        MOV        EAX,dword ptr [EBX + 0x10]
 080499eb 44              INC        ESP
 080499ec 8b 4b 14        MOV        ECX,dword ptr [EBX + 0x14]
-    080499ef 53              PUSH       EBX
-080499f0 e8 48 06        CALL       FUN_0804a03
-    00 00
-    080499f5 5b              POP        EBX
-    080499f6 89 43 18        MOV        dword ptr [EBX + 0x18],EAX
-    080499f9 8b 63 1c        MOV        ESP,dword ptr [EBX + 0x1c]
-    080499fc cb              RETF
+080499ef 53              PUSH       EBX
+080499f0 e8 48 06 00 00  CALL       FUN_0804a03
+080499f5 5b              POP        EBX
+080499f6 89 43 18        MOV        dword ptr [EBX + 0x18],EAX
+080499f9 8b 63 1c        MOV        ESP,dword ptr [EBX + 0x1c]
+080499fc cb              RETF
 ```
 
 This means that we execute the program like this:
@@ -522,9 +521,9 @@ print(''.join(new_guess))
 ### Flag
 This does end up looking pretty ugly, but after mapping it back, we get the string `HTX{r3tf@X_t0_tH3_h3@V3nXg@X3X!}`
 
-As you can see by this output, some of the characters are marked by an X, but we are VERY close to the flag. We are missing 5 characters, and we can easily determine that the first is `B` to make it `HTB`.
+As you can see by this output, some of the characters are marked by an X, but we are VERY close to the flag. We are missing 5 characters, and we can easily determine that the first is `B` to make it `HTB` (Note: I found out the reason for this after the CTF ended, and added it at the bottom of this writeup).
 
-This was super weird, but to looking into it more, it seemed like the outputs would be different based on the position. So I also added the outputs for the reverse of each of our original guesses.
+This was super weird, but to looking into it more, it seemed like the outputs would be different based on the position. So I also added the outputs for the reverse of each of our original guesses (*read Notes for explanation on this*, I was just dumb).
 
 This left us with two unknowns: `HTB{r3tf@X_t0_tH3_h3@V3nXg@t3!!}`. This is close enough to guess. `r3tf@X => r3tf@r`, representing the `retf` instruction in the challenge, which stand for `return far`. The other part is `heavenXgate => heavensgate`. In 1337 2p3@k, this could be any of `z, s, 2, S, 5`.
 Testing against the binary tells us it's `5`. Giving us the flag `HTB{r3tf@r_t0_tH3_h3@V3n5g@t3!!}`
@@ -537,6 +536,22 @@ ENCHANTMENT CORRECT! YOU HAVE ESCAPED MALAKAR'S TRAP!
 Full solution: [solution.py](/writeups/gateway/solution.py)
 
 ## Notes
-I definitely could have gotten this working with no guessing by using something like pwntools to debug the binary and read the crcs for strings made up of only one ascii characters in every position. This should theoretically give a complete map. I'm still not too sure about why the crc is different based on the position though, I was kind of thinking it could be a problem with the debugger and the 32-bit compatability mode interfering somehow? (idk what i'm talking about)
+~I definitely could have gotten this working with no guessing by using something like pwntools to debug the binary and read the crcs for strings made up of only one ascii characters in every position. This should theoretically give a complete map. I'm still not too sure about why the crc is different based on the position though, I was kind of thinking it could be a problem with the debugger and the 32-bit compatability mode interfering somehow? (idk what i'm talking about)~
+
+The reason that the solution was not getting the correct crc for each byte was hidden in how I was making python lists out of the GDB output.
+
+Notice that the last column is only 7 hex digits, not 8. This is due to me using a `vim` macro to convert it to a comma seperated list. This also happened on my guess outputs, so naturally it makes sense that rearranging the guesses would lead to different crcs if the character was mapped at an index where `i % 4 == 3`. To fix this I can just not chop of the last 4 bits of those crcs.
+```
+target = [
+    0xb62a1500, 0x1d5c0861, 0x4c6f6e28, 0x4312c5a,
+    0x3cd56ab6, 0x1e6ab55b, 0x3cd56ab6, 0xc06c89b,
+    0xed3f1f80, 0xbaf0e1e8, 0xbfab26a6, 0x3cd56ab,
+    0xb3e0301b, 0xbaf0e1e8, 0xe1e5eb68, 0xb0476f7,
+    0xb3e0301b, 0x3cd56ab6, 0xbfab26a6, 0xe864d8c,
+    0x4c6f6e28, 0x4312c5af, 0xb3e0301b, 0x9d14f94,
+    0xee9840ef, 0x3cd56ab6, 0xbfab26a6, 0xbfab26a,
+    0x9d14f94b, 0xbaf0e1e8, 0x14dd3bc7, 0x9732958,
+]
+```
 
 Another note about the nature of the challenge. I've read that this ELF is a polyglot, meaning it will execute the same in both x86 and x64. This comes with some side effects like the `inc` and `dec` instructions being used to offset instructions to make addressing remain the same in both modes, along with the help of `CS=0x33` from `retf`. Take what I'm saying here with a grain of salt, it's well explained in the official write up though.
