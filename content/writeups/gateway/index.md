@@ -536,7 +536,7 @@ ENCHANTMENT CORRECT! YOU HAVE ESCAPED MALAKAR'S TRAP!
 Full solution: [solution.py](/writeups/gateway/solution.py)
 
 ## Notes
-~I definitely could have gotten this working with no guessing by using something like pwntools to debug the binary and read the crcs for strings made up of only one ascii characters in every position. This should theoretically give a complete map. I'm still not too sure about why the crc is different based on the position though, I was kind of thinking it could be a problem with the debugger and the 32-bit compatability mode interfering somehow? (idk what i'm talking about)~
+<s>I definitely could have gotten this working with no guessing by using something like pwntools to debug the binary and read the crcs for strings made up of only one ascii characters in every position. This should theoretically give a complete map. I'm still not too sure about why the crc is different based on the position though, I was kind of thinking it could be a problem with the debugger and the 32-bit compatability mode interfering somehow? (idk what i'm talking about)</s>
 
 The reason that the solution was not getting the correct crc for each byte was hidden in how I was making python lists out of the GDB output.
 
