@@ -5,6 +5,11 @@ identifier = "wR7BPUz6BD"
 weight = 1
 
 [[main]]
+name = "CV"
+url = "/cv.pdf"
+weight = 2
+
+[[main]]
 name = "Projects"
 pageRef = "/projects"
 identifier = "UdhC8DEt3n"
@@ -22,6 +27,11 @@ identifier = "github"
 pre = "github"
 url = "https://github.com/c-ola"
 weight = 50
+
+[[main]]
+url = "https://ko-fi.com/cola994451"
+pre = "ko-fi"
+weight = 61
 
 [[main]]
 identifier = "linkedin"
