@@ -48,7 +48,7 @@ with tempfile.TemporaryDirectory(dir="/tmp/work") as tmpdirname:
         exit(1)
 ```
 
-I reads input, then writes it to `<tmpdir>/main.c` if the input matches the regex, and runs it.
+It reads input, then writes it to `<tmpdir>/main.c` if the input matches the regex, and runs it.
 
 The file's gonna look like something like the following if it matches:
 ```c
