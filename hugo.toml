@@ -43,7 +43,7 @@ buildFuture = false
 
     [[related.indices]]
         name = "categories"
-        weight = 100
+        weight = 90
 
     [[related.indices]]
         name = "series"
