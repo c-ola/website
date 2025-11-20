@@ -1,5 +1,5 @@
-module website
+module nikzu.dev/website
 
-go 1.25.1
+go 1.25.4
 
-require github.com/nunocoracao/blowfish/v2 v2.90.0 // indirect
+require github.com/nunocoracao/blowfish/v2 v2.92.0 // indirect
