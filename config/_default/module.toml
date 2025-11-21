@@ -4,4 +4,3 @@
 [[imports]]
 disable = false
 path = "github.com/nunocoracao/blowfish/v2"
-  min = "0.87.0"
